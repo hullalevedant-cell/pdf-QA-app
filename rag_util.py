@@ -2,7 +2,7 @@ import os
 import shutil
 from dotenv import load_dotenv
 
-from langchain_community.document_loaders import UnstructuredPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
@@ -26,9 +26,14 @@ llm = ChatGroq(
 )
 
 def process_document_to_croma_db(filename, persist_directory=None):
-    # load the pdf document using unstructred document loader
-    loader = UnstructuredPDFLoader(filename)
+    # Extract embedded text without Unstructured's image-processing system libraries.
+    loader = PyPDFLoader(filename)
     documents = loader.load()
+    documents = [document for document in documents if document.page_content.strip()]
+    if not documents:
+        raise ValueError(
+            "No selectable text was found in this PDF. It may be scanned; use a text-based PDF or add OCR support."
+        )
 
     # splitting the text into chunks for embedding
     text_splitter = RecursiveCharacterTextSplitter(

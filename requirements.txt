@@ -5,9 +5,6 @@ langchain-community
 langchain
 langchain-huggingface
 langchain-text-splitters
-unstructured
-unstructured[pdf]
-unstructured-inference
-langchain-unstructured
+pypdf
 langchain-chroma
 langchain-groq
