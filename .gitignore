@@ -1,0 +1,12 @@
+# Secrets
+.env
+
+# Python environment and cache
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Uploaded PDFs and generated vector data
+.sessions/
+doc_vectorstore/

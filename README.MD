@@ -1,0 +1,1 @@
+this is a app which reads the uploaded the pdf document and answers the questions asked by the user based on that document
